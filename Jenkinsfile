@@ -7,6 +7,14 @@ pipeline {
                 git 'https://github.com/Ugonnabugwu/april-repo.git'
             }
         }
+    
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('mysonar')  {
+                        sh 'mvn -f AprilApp/pom.xml clean package sonar:sonar'
+                    }
+                }
+            }
         
      stage('Unit Test') {
             steps {
