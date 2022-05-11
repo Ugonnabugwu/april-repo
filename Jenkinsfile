@@ -4,18 +4,18 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git 'https://github.com/kenkool23/NewProject4.git'
+                git 'https://github.com/Ugonnabugwu/april-repo.git'
             }
         }
         
         stage('Test') {
             steps {
-                sh 'cd SampleWebApp && mvn test'
+                sh 'cd AprilApp && mvn test'
             }
         }
         stage('Build with Maven') {
             steps {
-                sh 'cd SampleWebApp && mvn clean package'
+                sh 'cd AprilApp && mvn clean package'
             }
         }
 
@@ -25,8 +25,8 @@ pipeline {
                 }
             steps {
                 step([$class: 'AWSEBDeploymentBuilder', credentialId: 'aws-cred',
-                awsRegion: 'us-east-2', applicationName: 'tomcat-app', environmentName: 'staging-env', keyPrefix: 'stage', sleepTime: 5,
-                bucketName: 'elasticbeanstalk-us-east-2-855171129788', rootObject: 'SampleWebApp/target/SampleWebApp-1.0.null.war', versionLabelFormat: 'staging-$BUILD_NUMBER'])
+                awsRegion: 'us-east-2', applicationName: 'Tomcat-app', environmentName: 'staging-env', keyPrefix: 'stage', sleepTime: 5,
+                bucketName: 'elasticbeanstalk-us-east-2-697102533223', rootObject: 'AprilApp/target/AprilApp-1.0.null.war', versionLabelFormat: 'staging-$BUILD_NUMBER'])
                 
             }
         }
@@ -37,8 +37,8 @@ pipeline {
                 }
             steps {
                 step([$class: 'AWSEBDeploymentBuilder', credentialId: 'aws-cred',
-                awsRegion: 'us-east-2', applicationName: 'tomcat-app', environmentName: 'production1', keyPrefix: 'prod', sleepTime: 5,
-                bucketName: 'elasticbeanstalk-us-east-2-855171129788', rootObject: 'SampleWebApp/target/SampleWebApp-1.0.null.war', versionLabelFormat: 'prod-$BUILD_NUMBER'])
+                awsRegion: 'us-east-2', applicationName: 'Tomcat-app', environmentName: 'production-env', keyPrefix: 'prod', sleepTime: 5,
+                bucketName: 'elasticbeanstalk-us-east-2-697102533223', rootObject: 'AprilApp/target/AprilApp-1.0.null.war', versionLabelFormat: 'prod-$BUILD_NUMBER'])
                 
             }
         }
